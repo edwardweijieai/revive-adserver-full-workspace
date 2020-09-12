@@ -44,8 +44,6 @@ RUN wget -qO- https://download.revive-adserver.com/revive-adserver-4.2.1.tar.gz 
     && chown -R nobody:nobody . \
     && rm -rf /var/cache/apk/*
 
-USER gitpod
-
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir -p /run/nginx
