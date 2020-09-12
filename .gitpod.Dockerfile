@@ -2,7 +2,11 @@ FROM alpine
 
 WORKDIR /var/www/html
 
+USER root
+
 RUN apk --update upgrade && apk update && apk add curl ca-certificates && update-ca-certificates --fresh && apk add openssl
+
+USER root
 
 RUN apk --update add \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
@@ -34,9 +38,13 @@ RUN apk --update add \
         php7-zip \
     && rm -rf /var/cache/apk/*
 
+USER root
+
 RUN wget -qO- https://download.revive-adserver.com/revive-adserver-4.2.1.tar.gz | tar xz --strip 1 \
     && chown -R nobody:nobody . \
     && rm -rf /var/cache/apk/*
+
+USER gitpod
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
