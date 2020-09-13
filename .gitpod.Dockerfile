@@ -65,7 +65,14 @@ RUN mkdir -p /run/nginx
 
 EXPOSE 80
 
-CMD php-fpm7 && nginx -g 'daemon off;'
+EXPOSE 3306
+WORKDIR /var/www/html
+
+VOLUME ["/var/www/html", "/var/www/html/logs", "/var/lib/mysql", "/etc/mysql/conf.d/"]
+CMD ["/run.sh"]
+
+#CMD php-fpm7 && nginx -g 'daemon off;'
+
 # FROM gitpod/workspace-full
 
 # USER gitpod
