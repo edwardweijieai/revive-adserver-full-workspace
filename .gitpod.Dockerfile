@@ -38,6 +38,21 @@ RUN apk --update add \
         php7-zip \
     && rm -rf /var/cache/apk/*
 
+
+RUN apk add mysql mysql-client bash nginx ca-certificates && \
+    apk add -u musl && \
+    mkdir -p /var/lib/mysql && \
+    mkdir -p /etc/mysql/conf.d && \
+    mkdir -p /etc/nginx/conf.d && \
+    mkdir -p /var/run/mysql/ 
+
+ADD docker/nginx_test.conf /etc/nginx/
+ADD docker/php-fpm.conf /etc/php/
+ADD docker/my.cnf /etc/mysql/
+ADD docker/default.conf /etc/nginx/conf.d/
+ADD docker/run.sh /
+RUN chmod +x /run.sh
+
 USER root
 
 RUN wget -qO- https://download.revive-adserver.com/revive-adserver-4.2.1.tar.gz | tar xz --strip 1 \
