@@ -2,9 +2,9 @@
 
 [ -f /run-pre.sh ] && /run-pre.sh
 
-if [ ! -d /data/htdocs ] ; then
-  mkdir -p /data/htdocs
-  chown :www-data /data/htdocs
+if [ ! -d /var/www/html ] ; then
+  mkdir -p /var/www/html
+  chown :www-data /var/www/html
 fi
 
 # create all mysql neccessary database
